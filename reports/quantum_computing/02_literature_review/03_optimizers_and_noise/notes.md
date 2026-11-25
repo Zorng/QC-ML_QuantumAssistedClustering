@@ -18,6 +18,8 @@ Additional reading on 2026-11-24:
 - **Cai et al., supplied `error-mitigation.pdf`:** Identified as arXiv:2210.00921v3, a 43-page author manuscript of the published review. Read the introduction and targeted Sections II.A–B, pp. 3–4; III.A, pp. 6–7; and IV.A, pp. 21–22, for estimator bias/variance, ZNE assumptions, noise amplification, calibration costs, and comparisons. The remaining mitigation techniques and the full mathematical survey were not comprehensively reviewed.
 - **Mitiq ZNE documentation:** Read the ZNE overview, introduction, use-case limitations, options for global folding and linear extrapolation, theory, and the noise-scaling example's inverse-gate warning. These support the proposed software route, not measured improvement or completed library integration.
 
+Additional reading on 2026-11-25: scikit-learn's `silhouette_score` and `adjusted_rand_score` documentation, specifically required inputs, interpretation, Silhouette validity, and ARI invariance under cluster-label permutation. These support the selected evaluation outputs without changing the optimizer candidates or introducing new benchmark results.
+
 Bibliographic identities, exact supporting locations, access outcomes, and local citation numbers are in [ref.md](ref.md).
 
 ## Source Comparison
@@ -34,6 +36,8 @@ Bibliographic identities, exact supporting locations, access outcomes, and local
 | [DefaultMixed](ref.md#pennylane-default-mixed) | Readout-error software setting | Supported mixed-state device and measurement | Class Parameters: `readout_prob` | A configurable probability is not a measured hardware error rate | Official support for a separately identified readout condition |
 | [Cai et al.](ref.md#cai2023-quantum-error-mitigation) | Survey of error-mitigated estimators and ZNE | Chosen observable, valid noise amplification, appropriate extrapolation response, finite sampling | Sections II.A–B: bias/variance and MSE; III.A: extrapolation and gate-insertion limits; IV.A: calibration and use-case-specific comparisons | Secondary synthesis, not new QAOA-clustering evidence; no guarantee that a selected fit reduces error | Motivate one carefully budgeted ZNE diagnostic and distinguish estimator improvement from corrected clustering outputs |
 | [Mitiq ZNE guide](ref.md#mitiq-zne-guide) | Digital folding and selectable extrapolation | Supported circuit/executor interface, preserved ideal action, appropriate noise scaling | `fold_global`, `LinearFactory`, theory, use-case caveats, and inverse-gate warning | Documentation examples are not project benchmarks; gate/inverse errors can differ | Official support for the proposed two-point configuration and implementation checks |
+| [Silhouette API](ref.md#scikit-learn-silhouette-score) | Mean internal clustering coefficient | Declared feature/distance representation and a valid partition | Definition and Parameters: evaluation features/distances, predicted labels, and $2\leq k\leq n-1$ | Documentation supplements the method literature; geometric quality is not diagnosis agreement | Support the headline internal score on shared scaled original features |
+| [ARI API](ref.md#scikit-learn-adjusted-rand-score) | Chance-adjusted partition agreement | Reference and predicted labels on the same observation set | Definition, Parameters, and permutation examples | A reference-agreement score is not classification accuracy or a task-feasibility check | Use available diagnosis labels only for external evaluation |
 
 ## Evidence and Interpretation Checks
 
@@ -83,7 +87,7 @@ Choose the gate basis, mapping/routing, and compilation settings before attachin
 
 Fixing parameters isolates circuit sensitivity from reoptimization. It does not remove finite-shot variation, which requires fresh batches and recorded seeds. Combined gate/readout noise alone cannot identify which component caused a change; component-only diagnostics are optional and separately budgeted.
 
-The initial campaign fixes a shallow depth, training shot allocation, and one nonzero noise profile. A later feasibility check determines $B$, the shot cap, instance count $I$, and repetition count $R$ before held-out evaluation. The two methods and two optimization conditions imply $4IR$ optimization runs, plus separate diagnostic evaluations. There is no automatic 20-pair stability study, nested restart grid, or depth/noise/hyperparameter sweep. If only very few repetitions fit, retain individual values and limited-evidence language. A deterministic optimizer can still vary because its sampled objective varies.
+The initial campaign fixes a shallow depth, training shot allocation, and one nonzero noise profile. A later feasibility check determines $B$, the shot cap, evaluation-observation-set count $I$, and repetition count $R$ before reserved evaluation. The two methods and two optimization conditions imply $4IR$ optimization runs, plus separate diagnostic evaluations. Different subsets of the breast cancer dataset are not additional independent datasets. Resampling-stability fits are deferred; there is no nested restart grid or depth/noise/hyperparameter sweep. Fixed-observation runs remain necessary to describe stochastic variation when affordable. If only very few repetitions fit, retain individual values and limited-evidence language. A deterministic optimizer can still vary because its sampled objective varies.
 
 ## ZNE: Evidence, Proposed Choices, and Limits
 
@@ -114,11 +118,32 @@ Mitiq's options page supplies the proposed named functions; its examples also in
 
 The initial diagnostic does not add mitigation inside COBYLA or SPSA updates, a mitigation-method sweep, readout calibration/inversion, or an end-to-end clustering-benefit claim. If an ideal reference or enough repeats are unavailable, retain individual values and resource reporting without asserting reliable bias reduction. Extrapolated values outside the observable's physical range must remain visible with a flag; clipping would change the estimator and conceal a failure.
 
+## Selected Dataset and Initial Evaluation Scope
+
+The selected project data are a breast cancer dataset with diagnosis labels. The exact variant, source/version, observation identifiers, feature list, missing-data policy, and label coding have not been established in the reviewed project material; do not infer a particular public dataset, sample count, feature count, or class encoding from the name alone.
+
+| Output or analysis | Initial experimental scope | Technical reason |
+|---|---|---|
+| Silhouette | Main internal quality score, using the same scaled original features and observation IDs for both methods | Describes feature-space geometry without reference labels |
+| External ARI | Main reference-agreement score, calculated only after decoding is fixed | Diagnosis labels are available for evaluation; obtaining ARI from existing labels does not require another QAOA optimization |
+| Runtime | Main efficiency output, with common setup and optimization components disclosed | End-to-end cost must use a consistent timing boundary |
+| DBI | Deferred from initial experiments; retain the broader ML literature coverage | The initial output list is limited to one internal score, one external score, and runtime |
+| Resampling stability | Deferred from initial experiments; retain the broader ML literature coverage | Additional subset fits increase workload; deferral is not evidence of robustness |
+| Fixed-observation repetitions | Retained, with affordable counts frozen after development | Repetition describes stochastic variation and does not imply a full resampling-stability study |
+| Objective, failure, shot, and circuit records | Retained as supporting records | Three headline outputs do not replace fair resource accounting or task-validity checks |
+| ZNE objective-error and cost diagnostic | Retained separately at frozen parameters | Scalar extrapolation does not create new cluster labels or directly improve Silhouette/ARI |
+
+Keep the diagnosis column and record identifiers outside the feature matrix. Reference labels must not influence sampling, preprocessing/PCA, graph or optimizer settings, stopping, bitstring decoding, or restart selection. All methods receive the same selected observation IDs. Align each feature row, predicted label, and diagnosis label explicitly. Check the actual selected subset's reference/predicted counts when interpreting ARI; do not assume a small subset represents the whole dataset well. Silhouette is evaluated on shared scaled original features, with its fitting policy reconciled before experiments.
+
+Headline runtime starts with preprocessing the selected feature table and stops when a partition or a failure is returned. Include graph construction, compilation, optimization, final shots, and decoding. Exclude download/loading, metric computation, plotting, and the separate ZNE diagnostic; record relevant extra times separately. When common setup is reused, record its time and include it once in each method's end-to-end total, rather than comparing one method with setup against another without it. Record the machine/backend, threading settings, timing components, and any failure/early-stop status.
+
+This is a single-dataset exploratory comparison. Different observation subsets, starts, and shot batches are repeated or within-dataset evaluations, not independent datasets. Do not infer population-wide or across-dataset superiority. Report all attempted runs and conditional-on-validity score summaries; a numeric ARI does not cancel a task failure.
+
 ## Compatibility with Existing Project Material
 
 The project README identifies graph-based QAOA clustering, open optimizer choices, and no implemented dependency stack. No completed algorithm or software selection is assumed. The QAOA topic files and ML evaluation files on `main` are empty at the inspected revision `0167d18`.
 
-The existing ML evaluation draft was read from `machine-learning/3` at `17bb112` without merging or editing it. This is a technical compatibility check against that draft, not final cross-topic agreement. Its relevant proposed controls are common observation IDs, scaled original-space internal metrics, labels reserved for evaluation, independent evaluation instances, separate shot/gate/readout conditions, and budget-dependent repetitions. The optimizer proposal preserves those controls and keeps graph/QUBO objective values separate from clustering scores. Stability fits remain a separate resource allocation.
+The existing ML evaluation draft was read from `machine-learning/3` at `17bb112` without merging or editing it. This is a technical compatibility check against that draft, not final cross-topic agreement. Its relevant proposed controls are common observation IDs, scaled original-space internal metrics, labels reserved for evaluation, independent evaluation instances, separate shot/gate/readout conditions, and budget-dependent repetitions. The current QC proposal preserves shared scoring, label isolation, and resource controls, but narrows the initial experimental outputs to Silhouette, external ARI, and runtime on one labeled breast cancer dataset. DBI and resampling-stability experiments are deferred. The broader ML draft still needs alignment with this narrower experimental scope; its literature coverage is retained. Within-dataset repetitions do not satisfy an independent-dataset comparison by relabeling them as independent instances.
 
 Research files in related topics have not established a final graph loss, balance constraint, compiled gate basis, or noise profile. Those dependencies remain unresolved; no lesson completion or experimental result is inferred from a placeholder folder.
 
@@ -132,7 +157,9 @@ Research files in related topics have not established a final graph loss, balanc
 | What values of $u_1$, $u_2$, and $r$ define the synthetic profile? | Needed to reproduce a noise experiment | Choose on development instances; no hardware calibration inferred |
 | Which gates are virtual or eliminated by compilation? | Attaching errors before decomposition or to nonexistent gates changes the model | Freeze and inspect a compiled template; record exclusions and simplification policy |
 | What evaluation/shot/campaign caps and repetition counts are affordable? | Full noisy optimization dominates cost; small samples limit conclusions | Later feasibility check, then freeze settings; retain failed/incomplete attempts |
-| Can independent evaluation instances be obtained? | Repeated starts on one graph do not establish generalization | Separate instance-level from within-instance summaries |
+| What is the exact breast cancer dataset and its diagnosis coding? | Features, reference labels, identifiers, and provenance must be reproducible | Record source/version and column roles; do not assume a particular public variant or class encoding |
+| How will development and evaluation observations and scaling fits be defined? | One dataset can supply repeated subsets without establishing independent-dataset evidence | Prespecify IDs, overlap, fit population, and seed rules; keep diagnosis labels out of selection |
+| How representative are the affordable evaluation subsets? | Tiny subsets can omit a reference group or distort size distributions | Report reference/predicted counts and limited scope; do not treat repeated subsets as independent datasets |
 | How is a bitstring converted into a feasible partition, including symmetric labels? | Lowest sampled objective can still yield an invalid task output | Agree on decoding and failure policy with QAOA and ML reviews; external labels remain unavailable to selection |
 | Which component-only noise diagnostics are affordable? | Combined noise does not identify a gate-only or readout-only cause | Optional fixed-parameter extensions, not part of a large optimization grid |
 | Can the backend preserve ideal folding and assign consistent errors to inverse gates? | Nominal gate multiplication may not yield the assumed noise scaling | Verify compilation, ideal equivalence, and response on development circuits before the ZNE diagnostic |

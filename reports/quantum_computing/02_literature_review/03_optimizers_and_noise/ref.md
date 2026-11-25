@@ -1,6 +1,6 @@
 # References and Verification
 
-Local IEEE numbers follow first appearance in this topic's `content.md`. Source keys are independent of those numbers. Access-check dates are recorded per source: the original optimizer sources were checked on 2026-11-22 and the added mitigation sources on 2026-11-24. Checks were made from the assistant's environment and do not independently verify availability from Cambodia. Supplied PDFs were read locally. The three PennyLane noise/measurement pages were also reported accessible by the user during the earlier ML review; that report does not establish current or country-wide availability. Documentation pages are mutable: observed versions below describe the pages checked, not selected project dependencies.
+Local IEEE numbers follow first appearance in this topic's `content.md`. Source keys are independent of those numbers. Access-check dates are recorded per source: the original optimizer sources were checked on 2026-11-22, the added mitigation sources on 2026-11-24, and the selected metric documentation on 2026-11-25. Checks were made from the assistant's environment and do not independently verify availability from Cambodia. Supplied PDFs were read locally. The three PennyLane noise/measurement pages were also reported accessible by the user during the earlier ML review; that report does not establish current or country-wide availability. Documentation pages are mutable: observed versions below describe the pages checked, not selected project dependencies.
 
 ## farhi2014-qaoa
 
@@ -101,6 +101,24 @@ Local IEEE numbers follow first appearance in this topic's `content.md`. Source 
 - **Supporting locations:** Options, “Unitary Folding,” “The special case of odd integer scale factors,” and “Extrapolation methods: Factory objects”: `fold_global`, ideal-equivalent insertion, and `LinearFactory(scale_factors=[1, 3])`. Theory, Steps 1–2: noise amplification and extrapolated observable. Use-case page, Disadvantages: bias/model mismatch. Noise-scaling example, Warning: inverse gates can have different error models and produce nonlinear scaling. The options examples include exact density-matrix calculations; those are not finite-shot project runs.
 - **Boundary:** The frozen-parameter role, gate-only comparison, equal-shot allocation, variance/resource calculations, and diagnostic count are project proposals. The documentation does not establish integration with this repository or mitigation of its clustering outputs.
 
+## scikit-learn-silhouette-score
+
+[11] scikit-learn developers, “silhouette_score,” *scikit-learn Documentation*. Accessed: Nov. 25, 2026. [Online]. Available: https://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html
+
+- **Type/version:** Official API documentation, observed scikit-learn 1.9.1. No page publication date or DOI asserted. The stable key is reused from the ML evaluation draft for the same page.
+- **Public full text:** [silhouette_score](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html).
+- **Access check:** 2026-11-25: page opened and relevant definition/parameter text read in the assistant's browsing environment. Access from Cambodia has not been verified.
+- **Supporting locations:** Definition: mean coefficient, interpretation, and $2\leq k\leq n-1$ condition. Parameters: feature/distance input and predicted labels. Shared original-space scoring and exclusion from tuning are project protocol choices.
+
+## scikit-learn-adjusted-rand-score
+
+[12] scikit-learn developers, “adjusted_rand_score,” *scikit-learn Documentation*. Accessed: Nov. 25, 2026. [Online]. Available: https://scikit-learn.org/stable/modules/generated/sklearn.metrics.adjusted_rand_score.html
+
+- **Type/version:** Official API documentation, observed scikit-learn 1.9.1. No page publication date or DOI asserted.
+- **Public full text:** [adjusted_rand_score](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.adjusted_rand_score.html).
+- **Access check:** 2026-11-25: page opened and relevant definition, parameter, and label-permutation text read in the assistant's browsing environment. Access from Cambodia has not been verified.
+- **Supporting locations:** Definition: chance-adjusted partition agreement and invariance under cluster-label permutation. Parameters: reference and predicted label arrays. The choice of diagnosis labels as the project's evaluation reference is a protocol decision; this page does not identify or validate the project's dataset.
+
 ## Citation-to-Claim Map
 
 | Local citation | Supported literature or software claim in `content.md` |
@@ -115,5 +133,7 @@ Local IEEE numbers follow first appearance in this topic's `content.md`. Source 
 | [8] | Documented readout-error configuration support |
 | [9] | Error-mitigated expectations, bias/variance tradeoff, ZNE assumptions, amplification limits, calibration costs, and use-case-specific evidence |
 | [10] | Official folding/linear-fit support, relative scale-factor interpretation, extrapolation workflow, and documented failure mechanisms |
+| [11] | Silhouette inputs, interpretation, and partition-validity condition |
+| [12] | ARI inputs, chance-adjusted reference agreement, and label-permutation invariance |
 
-The common-loss interface, sampling-variance calculation, budget equations, initialization/instance controls, return policy, synthetic channel placement, readout matrix, ZNE diagnostic design, two-point intercept and variance formulas, matched-resource accounting, reporting rules, and open agreements are explicitly proposed choices or derived calculations. They are not published findings or measured project results. No figures are used, so no figure attribution or relative-image links are required.
+The common-loss interface, sampling-variance calculation, budget equations, initialization/instance controls, return policy, synthetic channel placement, readout matrix, ZNE diagnostic design, two-point intercept and variance formulas, matched-resource accounting, selected headline outputs, runtime boundary, reporting rules, and open agreements are explicitly proposed choices or derived calculations. The breast cancer dataset choice and availability of diagnosis labels come from the project specification; its exact variant, metadata, and coding remain to be recorded. These choices are not published findings or measured project results. No figures are used, so no figure attribution or relative-image links are required.
