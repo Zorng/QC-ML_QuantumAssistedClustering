@@ -1,6 +1,6 @@
 # References and Verification
 
-Local IEEE numbers follow first appearance in this topic's `content.md`. Source keys are independent of those numbers. Access-check dates are recorded per source: the original optimizer sources were checked on 2026-11-22, the added mitigation sources on 2026-11-24, and the selected metric documentation on 2026-11-25. Checks were made from the assistant's environment and do not independently verify availability from Cambodia. Supplied PDFs were read locally. The three PennyLane noise/measurement pages were also reported accessible by the user during the earlier ML review; that report does not establish current or country-wide availability. Documentation pages are mutable: observed versions below describe the pages checked, not selected project dependencies.
+Local IEEE numbers follow first appearance in this topic's `content.md`. Source keys are independent of those numbers. Access-check dates are recorded per source: the original optimizer sources were checked on 2026-11-22, the added mitigation sources on 2026-11-24, the selected metric documentation on 2026-11-25, and the added Adam/gradient sources on 2026-11-27. Checks were made from the assistant's environment and do not independently verify availability from Cambodia. Supplied PDFs were read locally. The three PennyLane noise/measurement pages were also reported accessible by the user during the earlier ML review; that report does not establish current or country-wide availability. Documentation pages are mutable: observed versions below describe the pages checked, not selected project dependencies.
 
 ## farhi2014-qaoa
 
@@ -21,6 +21,7 @@ Local IEEE numbers follow first appearance in this topic's `content.md`. Source 
 - **Access check:** 2026-11-22: supplied 11-page published PDF read; arXiv v2 HTML and 13-page PDF opened. The publisher/DOI request redirected to a Nature authentication endpoint that the browsing tool could not access; successful publisher-web access is not claimed. The local publication and public preprint support the cited text.
 - **Supporting locations, published pagination:** pp. 2–3: formulation and expectation; p. 4, “Classical optimizers” and “Classical optimizer comparison,” Table 1: software, gradient method, graph set, repeats, shots, evaluation cap, and device-derived noise model; pp. 5–6, “Comparison of classical optimizers,” Fig. 5: condition-dependent rankings; pp. 7–8: depth behavior and discussion.
 - **Qualification:** Abstract and Results emphasize different leaders in the shot-noise condition. This discrepancy is retained in the notes and synthesis. The published approximation-ratio display is not adopted as a project definition.
+- **Additional access check:** 2026-11-27: public arXiv v2 HTML reopened; Section 2.1/Table 1 and Section 3.1 rechecked for Adam, parameter-shift gradients, software origin, and noise qualifications. This does not change the original publication identity or imply new publisher-web access.
 
 ## scipy-cobyla
 
@@ -41,9 +42,30 @@ Local IEEE numbers follow first appearance in this topic's `content.md`. Source 
 - **Supporting locations:** Sections I–II, pp. 332–333, Eqs. (2.1)–(2.3): update, paired noisy observations, two-call construction, $2q$ averaging, and finite-difference contrast. Section III, pp. 334–337: smoothness, moments, gains, stability/attraction and convergence qualifications. Section IV, pp. 337–338: conditional efficiency comparison. Section V, pp. 338–340, Table I: numerical statistical objective, matched measurement counts, dimensionality, gains, and finite-sample cautions. Section VI, p. 340: conclusions and open issues.
 - **Reading boundary:** The proofs were reviewed for assumptions, not independently rederived. No quantum performance finding is attributed to this paper.
 
+## kingma2015-adam
+
+[5] D. P. Kingma and J. L. Ba, “Adam: A method for stochastic optimization,” in *Proc. 3rd Int. Conf. Learn. Represent. (ICLR)*, San Diego, CA, USA, 2015. [Online]. Available: https://arxiv.org/abs/1412.6980
+
+- **Verified identity/version:** Title, authors, ICLR 2015 publication statement, and version checked against the supplied `adam.pdf` and arXiv record. The local file has 15 pages and identifies arXiv:1412.6980v9, Jan. 30, 2017. The first arXiv submission was Dec. 22, 2014; these dates distinguish the preprint/version from the 2015 conference publication. No journal volume, page range, or conference DOI asserted.
+- **Stable identifier:** [arXiv:1412.6980v9](https://arxiv.org/abs/1412.6980v9). The record also supplies [10.48550/arXiv.1412.6980](https://doi.org/10.48550/arXiv.1412.6980), an arXiv-record DOI rather than an independently asserted conference DOI.
+- **Public full text:** [Versioned PDF](https://arxiv.org/pdf/1412.6980v9).
+- **Access check:** 2026-11-27: local PDF metadata/title page and targeted text read; public arXiv record and 15-page v9 PDF opened. No Cambodia access test performed.
+- **Supporting locations:** pp. 1–3, Introduction, Algorithm 1, Sections 2–3: adaptive moment estimation, elementwise updates, hyperparameters, and initialization-bias correction. Section 4, p. 4: stated convex-analysis assumptions; not adopted as a QAOA guarantee. Section 6 setup and examples, pp. 5–6: classical ML tasks, common initialization, and best settings after a dense hyperparameter search.
+- **Reading boundary:** Targeted method, assumptions, and experimental-context reading. Appendix proofs, AdaMax, and the remaining experiments were not comprehensively reviewed; no general nonconvex convergence theorem or quantum noise-removal claim is drawn from this source.
+
+## pennylane-parameter-shift
+
+[6] PennyLane developers, “param_shift,” *PennyLane Documentation*. Accessed: Nov. 27, 2026. [Online]. Available: https://docs.pennylane.ai/en/stable/code/api/pennylane.gradients.param_shift.html
+
+- **Type/version:** Official gradient-transform API, observed PennyLane 0.45.1. No publication date or DOI asserted for this page.
+- **Public full text:** [Parameter-shift transform](https://docs.pennylane.ai/en/stable/code/api/pennylane.gradients.param_shift.html).
+- **Access check:** 2026-11-27: definition, frequency-based gradient expression, recipe-selection Note, and generated-tape example opened and read. No Cambodia access verification claimed.
+- **Supporting locations:** Expectation-gradient definition and generalized shift rule; Note: operation `grad_recipe`, `parameter_frequencies`, and generator-based fallback; Usage Details: transformed circuit tapes and classical postprocessing.
+- **Boundary:** Actual QAOA gate decomposition, shared-angle dependencies, channel compatibility, circuit counts, and shot allocation remain project checks. A finite-shot estimate of an analytic derivative is not an exact numerical gradient or a free optimizer update.
+
 ## pennylane-spsa-optimizer
 
-[5] PennyLane developers, “SPSAOptimizer,” *PennyLane Documentation*. Accessed: Nov. 22, 2026. [Online]. Available: https://docs.pennylane.ai/en/stable/code/api/pennylane.SPSAOptimizer.html
+[7] PennyLane developers, “SPSAOptimizer,” *PennyLane Documentation*. Accessed: Nov. 22, 2026. [Online]. Available: https://docs.pennylane.ai/en/stable/code/api/pennylane.SPSAOptimizer.html
 
 - **Type/version:** Official API documentation, observed PennyLane 0.45.1; no page publication date or DOI asserted.
 - **Public full text:** [API](https://docs.pennylane.ai/en/stable/code/api/pennylane.SPSAOptimizer.html); [linked implementation source](https://docs.pennylane.ai/en/stable/_modules/pennylane/optimize/spsa.html).
@@ -51,9 +73,19 @@ Local IEEE numbers follow first appearance in this topic's `content.md`. Source 
 - **Supporting locations:** Class definition, update equations, Parameters and Note; source `__init__`: algebraic initialization of gain constants; `compute_grad`: perturbed objective evaluations; `step`: update without forward cost; `step_and_cost`: additional forward evaluation and pre-update cost return.
 - **Qualification:** The generic term-count note does not establish this project's circuit grouping or total shot count. Those require the eventual measurement plan.
 
+## pennylane-adam-optimizer
+
+[8] PennyLane developers, “AdamOptimizer,” *PennyLane Documentation*. Accessed: Nov. 27, 2026. [Online]. Available: https://docs.pennylane.ai/en/stable/code/api/pennylane.AdamOptimizer.html
+
+- **Type/version:** Official API and implementation, observed PennyLane 0.45.1. No page publication date or DOI asserted.
+- **Public full text:** [Adam API](https://docs.pennylane.ai/en/stable/code/api/pennylane.AdamOptimizer.html), [Adam source](https://docs.pennylane.ai/en/stable/_modules/pennylane/optimize/adam.html), and [inherited gradient-descent source](https://docs.pennylane.ai/en/stable/_modules/pennylane/optimize/gradient_descent.html).
+- **Access check:** 2026-11-27: all three pages opened; named methods below read. No verification of access from Cambodia claimed.
+- **Supporting locations:** Adam constructor, `apply_grad`, `_update_accumulation`, and `reset`; inherited `compute_grad`, `step`, and `step_and_cost` for derivative/forward execution and pre-update cost. API Note identifies interface-specific optimizer guidance.
+- **Implementation qualifications:** Constructor defaults are stepsize 0.01, beta1 0.9, beta2 0.99, eps 1e-8; parameter prose instead says stepsize 0.1. The source scales the step size for bias correction and adds epsilon to the square root of the uncorrected second moment. Fix values and version explicitly; do not assert identity with paper Algorithm 1 for the same fixed epsilon. A forward objective is requested by `step_and_cost` only when gradient computation supplies none.
+
 ## pennylane-measurements
 
-[6] PennyLane developers, “Measurements,” *PennyLane Documentation*. Accessed: Nov. 22, 2026. [Online]. Available: https://docs.pennylane.ai/en/stable/introduction/measurements.html
+[9] PennyLane developers, “Measurements,” *PennyLane Documentation*. Accessed: Nov. 22, 2026. [Online]. Available: https://docs.pennylane.ai/en/stable/introduction/measurements.html
 
 - **Type/version:** Official guide, observed PennyLane 0.45.1; title and URL checked. No publication date or DOI asserted. Key reused from the ML evaluation draft for the same page.
 - **Public full text:** [Measurements](https://docs.pennylane.ai/en/stable/introduction/measurements.html).
@@ -62,7 +94,7 @@ Local IEEE numbers follow first appearance in this topic's `content.md`. Source 
 
 ## arrazola2021-noisy-circuits
 
-[7] J. M. Arrazola, “Noisy circuits,” *PennyLane Demos*, Feb. 21, 2021, updated Jun. 19, 2026. Accessed: Nov. 22, 2026. [Online]. Available: https://pennylane.ai/demos/tutorial_noisy_circuits/
+[10] J. M. Arrazola, “Noisy circuits,” *PennyLane Demos*, Feb. 21, 2021, updated Jun. 19, 2026. Accessed: Nov. 22, 2026. [Online]. Available: https://pennylane.ai/demos/tutorial_noisy_circuits/
 
 - **Type/metadata:** Official tutorial; author, title, publication/update dates, and URL checked on the page. No DOI asserted. Key reused from the ML evaluation draft.
 - **Public full text:** [Noisy circuits](https://pennylane.ai/demos/tutorial_noisy_circuits/).
@@ -72,7 +104,7 @@ Local IEEE numbers follow first appearance in this topic's `content.md`. Source 
 
 ## pennylane-default-mixed
 
-[8] PennyLane developers, “DefaultMixed,” *PennyLane Documentation*. Accessed: Nov. 22, 2026. [Online]. Available: https://docs.pennylane.ai/en/stable/code/api/pennylane.devices.DefaultMixed.html
+[11] PennyLane developers, “DefaultMixed,” *PennyLane Documentation*. Accessed: Nov. 22, 2026. [Online]. Available: https://docs.pennylane.ai/en/stable/code/api/pennylane.devices.DefaultMixed.html
 
 - **Type/version:** Official API, observed PennyLane 0.45.1; class identity and URL checked. No publication date or DOI asserted. Key reused from the ML evaluation draft.
 - **Public full text:** [DefaultMixed](https://docs.pennylane.ai/en/stable/code/api/pennylane.devices.DefaultMixed.html).
@@ -82,7 +114,7 @@ Local IEEE numbers follow first appearance in this topic's `content.md`. Source 
 
 ## cai2023-quantum-error-mitigation
 
-[9] Z. Cai et al., “Quantum error mitigation,” *Reviews of Modern Physics*, vol. 95, no. 4, Art. no. 045005, Dec. 2023, doi: [10.1103/RevModPhys.95.045005](https://doi.org/10.1103/RevModPhys.95.045005).
+[12] Z. Cai et al., “Quantum error mitigation,” *Reviews of Modern Physics*, vol. 95, no. 4, Art. no. 045005, Dec. 2023, doi: [10.1103/RevModPhys.95.045005](https://doi.org/10.1103/RevModPhys.95.045005).
 
 - **Verified metadata:** Title, authors, journal, volume, issue, article number, publication date (Dec. 13, 2023), and DOI checked on the [APS publication record](https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.95.045005). Full author list: Zhenyu Cai, Ryan Babbush, Simon C. Benjamin, Suguru Endo, William J. Huggins, Ying Li, Jarrod R. McClean, and Thomas E. O'Brien.
 - **Version read:** Supplied `error-mitigation.pdf` is the 43-page author manuscript arXiv:2210.00921v3, revised Dec. 28, 2023; its title page carries a Jan. 1, 2024 document date. That internal date is not the journal's publication year. The manuscript and journal article represent the same review publication and are not counted as separate evidence.
@@ -93,7 +125,7 @@ Local IEEE numbers follow first appearance in this topic's `content.md`. Source 
 
 ## mitiq-zne-guide
 
-[10] Mitiq developers, “Zero-noise extrapolation,” *Mitiq Documentation*. Accessed: Nov. 24, 2026. [Online]. Available: https://mitiq.readthedocs.io/en/stable/guide/zne.html
+[13] Mitiq developers, “Zero-noise extrapolation,” *Mitiq Documentation*. Accessed: Nov. 24, 2026. [Online]. Available: https://mitiq.readthedocs.io/en/stable/guide/zne.html
 
 - **Type/version:** Official user guide, observed Mitiq 1.1.0. Title, functions, and options below checked in the documentation. No page publication date or DOI asserted; this is supporting software documentation, not primary experimental evidence.
 - **Public full text:** [Overview](https://mitiq.readthedocs.io/en/stable/guide/zne.html), [introduction](https://mitiq.readthedocs.io/en/stable/guide/zne-1-intro.html), [options](https://mitiq.readthedocs.io/en/stable/guide/zne-3-options.html), [theory](https://mitiq.readthedocs.io/en/stable/guide/zne-5-theory.html), [use-case limitations](https://mitiq.readthedocs.io/en/stable/guide/zne-2-use-case.html), and [noise-scaling example](https://mitiq.readthedocs.io/en/stable/examples/scaling.html).
@@ -103,7 +135,7 @@ Local IEEE numbers follow first appearance in this topic's `content.md`. Source 
 
 ## scikit-learn-silhouette-score
 
-[11] scikit-learn developers, “silhouette_score,” *scikit-learn Documentation*. Accessed: Nov. 25, 2026. [Online]. Available: https://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html
+[14] scikit-learn developers, “silhouette_score,” *scikit-learn Documentation*. Accessed: Nov. 25, 2026. [Online]. Available: https://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html
 
 - **Type/version:** Official API documentation, observed scikit-learn 1.9.1. No page publication date or DOI asserted. The stable key is reused from the ML evaluation draft for the same page.
 - **Public full text:** [silhouette_score](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html).
@@ -112,7 +144,7 @@ Local IEEE numbers follow first appearance in this topic's `content.md`. Source 
 
 ## scikit-learn-adjusted-rand-score
 
-[12] scikit-learn developers, “adjusted_rand_score,” *scikit-learn Documentation*. Accessed: Nov. 25, 2026. [Online]. Available: https://scikit-learn.org/stable/modules/generated/sklearn.metrics.adjusted_rand_score.html
+[15] scikit-learn developers, “adjusted_rand_score,” *scikit-learn Documentation*. Accessed: Nov. 25, 2026. [Online]. Available: https://scikit-learn.org/stable/modules/generated/sklearn.metrics.adjusted_rand_score.html
 
 - **Type/version:** Official API documentation, observed scikit-learn 1.9.1. No page publication date or DOI asserted.
 - **Public full text:** [adjusted_rand_score](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.adjusted_rand_score.html).
@@ -127,13 +159,16 @@ Local IEEE numbers follow first appearance in this topic's `content.md`. Source 
 | [2] | Empirical study setup, condition-dependent optimizer findings, abstract/Results qualification, and limited transfer to clustering |
 | [3] | COBYLA's local interpolation/trust-region description, official support, evaluation-cap semantics, and implementation change |
 | [4] | SPSA equations, two/$2q$ calls, central-difference contrast, theoretical assumptions, and nonquantum evidence limits |
-| [5] | PennyLane schedule support, forward-cost overhead/return semantics, and inspected initialization behavior |
-| [6] | Finite-shot sampling versus exact supported simulator expectations |
-| [7] | Noisy-state channels and the chosen depolarizing probability convention |
-| [8] | Documented readout-error configuration support |
-| [9] | Error-mitigated expectations, bias/variance tradeoff, ZNE assumptions, amplification limits, calibration costs, and use-case-specific evidence |
-| [10] | Official folding/linear-fit support, relative scale-factor interpretation, extrapolation workflow, and documented failure mechanisms |
-| [11] | Silhouette inputs, interpretation, and partition-validity condition |
-| [12] | ARI inputs, chance-adjusted reference agreement, and label-permutation invariance |
+| [5] | Adam moment/update equations, initialization-bias correction, hyperparameter roles, classical experimental context, and limits of transferring the stated convex analysis to QAOA |
+| [6] | Supported expectation-gradient recipes, gate/frequency dependence, and generated shifted circuits; actual QAOA gradient cost remains an implementation check |
+| [7] | PennyLane schedule support, forward-cost overhead/return semantics, and inspected initialization behavior |
+| [8] | Official Adam support, state reset, explicit settings and implementation qualifications, inherited derivative/forward behavior, and pre-update cost semantics |
+| [9] | Finite-shot sampling versus exact supported simulator expectations |
+| [10] | Noisy-state channels and the chosen depolarizing probability convention |
+| [11] | Documented readout-error configuration support |
+| [12] | Error-mitigated expectations, bias/variance tradeoff, ZNE assumptions, amplification limits, calibration costs, and use-case-specific evidence |
+| [13] | Official folding/linear-fit support, relative scale-factor interpretation, extrapolation workflow, and documented failure mechanisms |
+| [14] | Silhouette inputs, interpretation, and partition-validity condition |
+| [15] | ARI inputs, chance-adjusted reference agreement, and label-permutation invariance |
 
-The common-loss interface, sampling-variance calculation, budget equations, initialization/instance controls, return policy, synthetic channel placement, readout matrix, ZNE diagnostic design, two-point intercept and variance formulas, matched-resource accounting, selected headline outputs, runtime boundary, reporting rules, and open agreements are explicitly proposed choices or derived calculations. The breast cancer dataset choice and availability of diagnosis labels come from the project specification; its exact variant, metadata, and coding remain to be recorded. These choices are not published findings or measured project results. No figures are used, so no figure attribution or relative-image links are required.
+The common-loss interface, sampling-variance calculation, budget equations (including the three-optimizer $6IR$ campaign count), sampled Adam gradient route and development settings, initialization/instance controls, return policy, synthetic channel placement, readout matrix, ZNE diagnostic design, two-point intercept and variance formulas, matched-resource accounting, selected headline outputs, runtime boundary, reporting rules, and open agreements are explicitly proposed choices or derived calculations. The breast cancer dataset choice and availability of diagnosis labels come from the project specification; its exact variant, metadata, and coding remain to be recorded. These choices are not published findings or measured project results. No figures are used, so no figure attribution or relative-image links are required.
