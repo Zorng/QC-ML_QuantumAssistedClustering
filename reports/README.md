@@ -92,11 +92,13 @@ Use Introduction subsections from the example: Presentation of Project, Problema
 
 ## Topic-based literature review sources
 
-The QC literature review has three topic directories inside `quantum_computing/02_literature_review/`:
+The QC literature review has five topic directories inside `quantum_computing/02_literature_review/`:
 
-- `01_clustering_and_qaoa/`
-- `02_classical_and_quantum_pca/`
-- `03_optimizers_and_noise/`
+- `01_preprocessing_and_pca/`: preprocessing and classical and quantum PCA.
+- `02_clustering_and_similarity_graphs/`: clustering foundations and similarity graph construction.
+- `03_clustering_and_qaoa/`: clustering formulation and QAOA.
+- `04_optimizers_and_noise/`: optimizer comparisons and noise.
+- `05_evaluation_and_experimental_design/`: evaluation and fair experimental comparisons.
 
 The ML literature review has three topic directories inside `machine_learning/02_literature_review/`:
 
