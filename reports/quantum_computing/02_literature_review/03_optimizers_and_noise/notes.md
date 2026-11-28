@@ -28,6 +28,10 @@ Additional reading on 2026-11-27:
 
 Bibliographic identities, exact supporting locations, access outcomes, and local citation numbers are in [ref.md](ref.md).
 
+## Established Methods and Project Choices
+
+The review adopts the cited QAOA construction, optimizer update rules, and ZNE method. The expected-cost expression describes what the circuit is scored on and supplies a common target for the optimizer comparison. The affine loss conversion is optional interface bookkeeping: use the raw expected cost when lower is better, or its negative when higher is better; introduce an offset or scale only with a stated reason. Fix any conversion across optimizers and record raw costs, since a changed scale can affect optimizer settings and stopping behavior. The graph objective and feasibility requirements still need agreement with the clustering/QAOA review; the generic conversion does not select them. Proposed budgets, observation sets, and diagnostic settings are experimental-design choices, while the sampling and ZNE accounting examples are derived calculations. None is a measured project result.
+
 ## Source Comparison
 
 | Source | Method or question | Assumptions | Evidence read | Limitations | Project relevance |
@@ -166,7 +170,7 @@ This is a single-dataset exploratory comparison. Different observation subsets, 
 
 The project README identifies graph-based QAOA clustering, open optimizer choices, and no implemented dependency stack. No completed algorithm or software selection is assumed. The QAOA topic files and ML evaluation files on `main` are empty at the inspected revision `0167d18`.
 
-The existing ML evaluation draft was read from `machine-learning/3` at `17bb112` without merging or editing it. This is a technical compatibility check against that draft, not final cross-topic agreement. Its relevant proposed controls are common observation IDs, scaled original-space internal metrics, labels reserved for evaluation, independent evaluation instances, separate shot/gate/readout conditions, and budget-dependent repetitions. The current QC proposal preserves shared scoring, label isolation, and resource controls, but narrows the initial experimental outputs to Silhouette, external ARI, and runtime on one labeled breast cancer dataset. DBI and resampling-stability experiments are deferred. The broader ML draft still needs alignment with this narrower experimental scope; its literature coverage is retained. Within-dataset repetitions do not satisfy an independent-dataset comparison by relabeling them as independent instances.
+The ML evaluation draft at `machine-learning/3`, revision `702ca26`, was checked for compatibility. Its main outputs, common observation IDs, original-space Silhouette, diagnosis-label isolation, runtime boundary, deferred DBI/resampling scope, and separate diagnostic accounting agree with this QC proposal. The three-optimizer comparison also requires explicit accounting for all Adam gradient circuits alongside COBYLA evaluations and SPSA perturbations. Dataset metadata, preprocessing, task/decoding rules, numerical budgets, and execution settings still require agreement. Within-dataset repetitions do not establish independent-dataset validation.
 
 Research files in related topics have not established a final graph loss, balance constraint, compiled gate basis, or noise profile. Those dependencies remain unresolved; no lesson completion or experimental result is inferred from a placeholder folder.
 

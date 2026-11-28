@@ -6,7 +6,9 @@ The original QAOA constructs a depth-$p$ parameterized state with $d=2p$ angles 
 
 For this project's graph-based clustering demonstration, we propose comparing three classical optimizers within the same QAOA loop: COBYLA, first-order SPSA, and Adam. The initial evaluation uses the project's labeled breast cancer dataset, with Silhouette, external Adjusted Rand Index (ARI), and runtime as the three main outputs. Davies–Bouldin (DBI) and resampling stability remain topics of the broader ML literature review but are deferred from the initial experiments. Zero-noise extrapolation (ZNE) is the sole proposed error-mitigation technique, initially restricted to evaluation at frozen parameters after optimization. Simulated annealing is outside the comparison. The optimizer would receive a scalar estimate of the agreed graph/QUBO objective; Silhouette and ARI would assess the decoded clustering separately. This section proposes later experiments; it contains no implementation or project results.
 
-Before evaluation, the QAOA formulation must specify the graph objective, QUBO-to-Ising conversion, constants, penalty terms, bit order, and decoding/feasibility rules. A proposed interface is
+The proposal concerns how established methods will be selected, combined, and compared. The cited QAOA construction, optimizer updates, and ZNE method supply the mathematical basis; the project choices are the clustering objective, configurations, budgets, and evaluation procedure.
+
+Before evaluation, the QAOA formulation must specify the graph objective, QUBO-to-Ising conversion, constants, penalty terms, bit order, and decoding/feasibility rules. The expected-cost expression below follows QAOA [[1]](ref.md#farhi2014-qaoa). The additional loss expression is an optional affine conversion for the minimization interface:
 
 $$
 E(\theta)=\langle\psi_p(\theta)|H_C|\psi_p(\theta)\rangle,
@@ -15,7 +17,9 @@ L(\theta)=\frac{\sigma E(\theta)+b}{a},
 \quad a>0,\quad \sigma\in\{-1,+1\}.
 $$
 
-Here $\theta$ contains the agreed angle ordering. The sign $\sigma$, offset $b$, and positive scale $a$ would be fixed by a declared rule before evaluation and shared by all three optimizers on an instance. Report the raw objective and penalty/feasibility information as well as the optimization loss. Arbitrary weighted clustering objectives should not inherit angle periods or approximation-ratio formulas without checking their assumptions: the original paper's $\gamma$ interval uses an integer-valued cost spectrum [[1]](ref.md#farhi2014-qaoa).
+Here $\theta$ contains the agreed angle ordering. If a lower raw cost is preferred, the optimizer can use $L=E$ directly; this sets $\sigma=+1$, $b=0$, and $a=1$. If a higher raw score is preferred, use $L=-E$. An additional offset or scale would be introduced only for a stated reason, fixed before evaluation, and shared by all three optimizers on an instance. This conversion aligns the optimization direction and units; it does not define the clustering objective. Report the raw objective and penalty/feasibility information as well as the optimization loss.
+
+Arbitrary weighted clustering objectives should not inherit angle periods or approximation-ratio formulas without checking their assumptions: the original paper's $\gamma$ interval uses an integer-valued cost spectrum [[1]](ref.md#farhi2014-qaoa).
 
 ## Evidence for a Three-Optimizer Comparison
 
