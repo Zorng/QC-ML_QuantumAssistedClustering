@@ -4,6 +4,8 @@
 
 The initial comparison uses the project's labeled breast cancer dataset and three main outputs: Silhouette, external Adjusted Rand Index (ARI), and end-to-end clustering runtime. Diagnosis labels are reserved for external evaluation. DBI and resampling stability are retained below as reviewed methods and possible later extensions, but their experiments are deferred. Budget-dependent repetitions on fixed observations, metric-validity checks, failure reporting, and quantum resource accounting remain part of the initial design. This is an evaluation proposal, not a report of completed experiments.
 
+The metric definitions below are adopted from the cited literature. The proposed contribution is an evaluation protocol: which observations, scoring representation, repetitions, resource limits, and reporting rules will be shared across methods.
+
 ## Silhouette as an Internal Evaluation Measure
 
 Silhouette evaluates a partition from its dissimilarities without depending on the algorithm that produced it [[1]](ref.md#rousseeuw1987-silhouettes). This makes it a candidate for the proposed comparison of classical and quantum-assisted clustering.
@@ -142,6 +144,8 @@ Stability would supplement internal geometry and external agreement in a future 
 
 The following protocol proposes a comparison of classical baselines and a small QAOA-assisted clustering demonstration on the labeled breast cancer dataset. Its main outputs are Silhouette, external ARI, and end-to-end runtime. DBI and resampling-stability experiments are deferred while their literature coverage is retained above. Quantum PCA and simulated annealing are not assumed to be implemented. Budgets and repetition counts require later feasibility work; no project results or teacher-imposed numerical settings are asserted.
 
+Within the QAOA arm, the proposed optimizer comparison is COBYLA, first-order SPSA, and Adam, using the same declared graph objective, observation IDs, starting angle vectors, and final decoding policy. The QC optimizer review supplies the method details. This ML protocol applies the same headline metrics and timing boundary to all three configurations and the matched classical baselines; optimizer loss is reported separately from clustering quality.
+
 ### Instances, Development, and Common Observations
 
 Record the exact breast cancer dataset source/version, feature columns, diagnosis coding, record identifiers, missing-data policy, and row IDs before evaluation. The dataset name alone does not establish a particular public variant, sample count, feature count, or class encoding. Reserve development and evaluation observation sets before selecting settings. Development would establish feasible sample sizes, preprocessing rules, graph parameters, optimizer budgets, and stopping conditions; these would then be frozen. Record any overlap and shared source population. Different subsets of this one dataset remain within-dataset comparisons; disjointness alone does not establish independence or across-dataset generalization.
@@ -160,7 +164,7 @@ The official Silhouette interface permits random metric subsampling [[2]](ref.md
 | Common observation sets | Choose affordable breast cancer observation sets without diagnosis-label selection; share their IDs across methods | Freeze sizes, subset seeds, overlap disclosures, and the preprocessing-fit policy before evaluation. |
 | DBI | Deferred from the initial experimental outputs | Retain the reviewed formulation and limitations; declare the variant and validity conventions before any extension. |
 | Resampling stability | Deferred; no paired-subset fits are scheduled initially | A future pair count, fraction, overlap screen, and budget would require explicit review; current repetitions do not establish resampling robustness. |
-| Optimizer and shot budgets | Declare objective-evaluation limits, stopping rules, shots per circuit, and total shots before evaluation | Select feasible values on development instances with the optimizer/noise review; record actual usage and early stopping. |
+| Optimizer and shot budgets | Declare charged objective-estimate limits, stopping rules, shots per circuit, and total shots for COBYLA, SPSA, and Adam | Count every executed gradient setting for Adam as well as ordinary objective estimates and SPSA perturbations; freeze feasible caps during development and record actual usage. |
 
 Select repetition counts after a small feasibility pilot on development observations, once implementations exist. Estimate whole-fit cost, including optimizer evaluations, circuit executions, final shots, and decoding. Reserve resources for fixed-observation runs, noise conditions, and any separate fixed-parameter diagnostics. No resampling allocation is required for the initial campaign. If that extension is later activated, $P$ separately fitted subset pairs require up to $2P$ full fits per method, parent dataset, and configuration, before any nested repetitions.
 
@@ -199,7 +203,7 @@ The proposed headline runtime starts with preprocessing the already selected fea
 | Quality and validity | Silhouette, external ARI, cluster sizes, reference provenance, and metric-validity reasons | Main scores are separate; diagnosis labels are evaluation-only. |
 | Deferred analyses | DBI and resampling stability | Preserve their literature coverage; do not present deferral as observed quality or robustness. |
 | Timing components | Main end-to-end runtime, shared setup, optimization-only time, and separately timed metric/diagnostic work | Use the declared boundary and disclose reused setup accounting. |
-| Optimization effort | Restarts, iterations, objective evaluations, stopping condition, and actual budget | Equal evaluation counts are meaningful only where the evaluated work is comparable; disclose each method's policy. |
+| Optimization effort | Restarts, iterations, charged objective estimates including derivative settings, gradient method, stopping condition, and actual budget | Count underlying circuit work rather than top-level optimizer/gradient calls; equal iteration counts do not establish matched quantum effort. |
 | Quantum circuit resources | Qubits, compiled depth, two-qubit gate count, target/basis, circuit evaluations, and shots | Report both per-circuit quantities and totals where applicable. |
 | Execution overhead | Compilation, simulator/device execution, decoding/postprocessing, and queue delay if present | Identify simulator and hardware modes; record queue delay separately. |
 
