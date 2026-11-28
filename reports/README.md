@@ -41,9 +41,45 @@ For any section in either report, create topic or subsection folders when needed
 
 Each subfolder follows the same structure: `content.md`, `notes.md`, `ref.md`, and `NN_figures/`. The figure prefix matches the parent report section number, not the subsection number. Keep topic material within its subfolder and use parent section files for later assembly and synthesis. Preserve existing content and update relative figure links when assembling or moving material.
 
+## IEEE references during independent drafting
+
+IEEE is required for both reports. Cite sources with square-bracket numbers before punctuation and provide IEEE-formatted bibliography entries. The format below is a project drafting convention; local numbers are provisional until report assembly.
+
+Each topic uses its own `ref.md`. Number sources from `[1]` in first-citation order within that topic's `content.md`; repeat the same number for later citations of that source. Do not number sources by first appearance in reading notes. Sources read but not cited can remain in a separately marked reading-notes list and do not enter the final bibliography automatically.
+
+Give every source a stable lowercase key such as `arthur2007-kmeanspp`, independent of its current citation number. Reuse a known key for the same publication where possible. In `content.md`, write:
+
+```markdown
+Initialization affects the result [[1]](ref.md#arthur2007-kmeanspp).
+```
+
+This displays a numbered citation while the link retains source identity. For multiple sources, use separate linked numbers. A locator can be included as `[[1, Sec. 2]](ref.md#arthur2007-kmeanspp)`.
+
+In `ref.md`, use a key heading followed by the local IEEE entry and separate verification metadata:
+
+```markdown
+## arthur2007-kmeanspp
+
+[1] D. Arthur and S. Vassilvitskii, “k-means++: The advantages of careful seeding,” in Proc. 18th Annu. ACM-SIAM Symp. Discrete Algorithms (SODA), 2007, pp. 1027–1035.
+
+- Publication identity: title, authors, venue, and year above; add a DOI only after verification.
+- Open full text: https://theory.stanford.edu/~sergei/papers/kMeansPP-soda.pdf
+- Metadata record: https://research.google/pubs/k-means-the-advantages-of-careful-seeding/
+- Access check: record the actual date and outcome; do not assume regional accessibility.
+- Evidence locations: record the sections or pages supporting the cited claims, distinguishing PDF page indices from printed page numbers.
+```
+
+Format each entry for its source type, including verified author initials, title, venue, year, volume/issue/pages where applicable, and DOI or URL. Include access dates for web sources where required. Never invent missing fields. Keep access notes and internal keys outside the final bibliography text. Open manuscript and publisher links can describe the same publication; materially different versions must be identified and reconciled rather than automatically treated as identical.
+
+For assembly, each report has its own first-citation numbering sequence and one entry per cited source. Topic-local `[1]` values can refer to different sources. Conversely, the same paper can have different local numbers and still become one entry. Preserve local files; renumber the assembled copy using publication identity, update relative links, and produce the final bibliography in `06_references/content.md`. The same source may have different final numbers in the ML and QC reports. Include citations in captions and tables when determining order.
+
+Stable keys and links are drafting aids; the final submission uses ordinary IEEE citations and its consolidated bibliography. Before delivery, check citation-to-entry correspondence, duplicate publications, ordering, metadata, and any unresolved tokens. No automatic citation assembler is implemented yet.
+
+Style source: [IEEE Reference Guide, 2018 edition, IEEE-hosted copy](https://edu.ieee.org/mx-udgvalles/wp-content/uploads/sites/121/IEEE-Reference-Guide.pdf). This is a checked reference, not a claim that it is the newest edition; follow any more specific teacher requirements.
+
 ## References and shared results
 
-Collect section sources in each `ref.md`. Consolidate and deduplicate them into `06_references/content.md` for the final bibliography. In the references section itself, `notes.md` and `ref.md` can hold bibliography cleanup notes and source metadata; its figure folder may remain unused.
+Collect section sources in each `ref.md` using the IEEE convention above. Consolidate and deduplicate them into `06_references/content.md` for the final bibliography. In the references section itself, `notes.md` and `ref.md` can hold bibliography cleanup notes and source metadata; its figure folder may remain unused.
 
 Keep authoritative experiment outputs in the shared `results/` directory. When placing an exported figure in a section folder, record its run identifier, configuration, and source artifact path in `notes.md`. Both reports must use the same values for the same run.
 
@@ -56,11 +92,13 @@ Use Introduction subsections from the example: Presentation of Project, Problema
 
 ## Topic-based literature review sources
 
-The QC literature review has three topic directories inside `quantum_computing/02_literature_review/`:
+The QC literature review has five topic directories inside `quantum_computing/02_literature_review/`:
 
-- `01_clustering_and_qaoa/`
-- `02_classical_and_quantum_pca/`
-- `03_optimizers_and_noise/`
+- `01_preprocessing_and_pca/`: preprocessing and classical and quantum PCA.
+- `02_clustering_and_similarity_graphs/`: clustering foundations and similarity graph construction.
+- `03_clustering_and_qaoa/`: clustering formulation and QAOA.
+- `04_optimizers_and_noise/`: optimizer comparisons and noise.
+- `05_evaluation_and_experimental_design/`: evaluation and fair experimental comparisons.
 
 The ML literature review has three topic directories inside `machine_learning/02_literature_review/`:
 
@@ -72,4 +110,4 @@ Sources and reading notes can be cross-referenced between reports where topics o
 
 Each contains `content.md`, `notes.md`, `ref.md`, and `02_figures/`. The figure prefix refers to report section 2, not the topic number. Topic files are the source material for their respective subsections; section-level files remain available for the assembled review, synthesis, and consolidated references.
 
-Link topic figures relatively, for example `02_figures/similarity_graph.png`. When assembling prose into the section-level `content.md`, update the link to include the topic directory. Figures can remain in their original topic folders. Deduplicate references by stable citation keys during assembly and assign final citation and figure numbers then. Assembly is manual; no automatic report builder is implemented.
+Link topic figures relatively, for example `02_figures/similarity_graph.png`. When assembling prose into the section-level `content.md`, update the link to include the topic directory. Figures can remain in their original topic folders. Use stable citation keys to track references, deduplicate by verified publication identity, and assign final citation and figure numbers during assembly. Assembly is manual; no automatic report builder is implemented.
